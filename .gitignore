@@ -1,3 +1,25 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+.godot/
+.export/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Backup files
+*.old
+*.bak
+
+# VS Code (if you're using it)
+.vscode/
+
+# Optional: ignore builds or exported game binaries
+bin/
+build/
