@@ -11,5 +11,16 @@ config_version=5
 [application]
 
 config/name="vendingmachine"
-config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="uid://c3bvbslkbvalg"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="vendingmachine"

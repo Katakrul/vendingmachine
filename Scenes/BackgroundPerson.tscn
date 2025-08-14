@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4fp8k2sg2ese"]
+
+[ext_resource type="Script" uid="uid://cubdti5veqmon" path="res://Scripts/BackgroundPerson.cs" id="1_86rw7"]
+[ext_resource type="Texture2D" uid="uid://duy8lekta4li8" path="res://Sprites/Characters/PlaceholderPerson.png" id="2_uxjrd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55i2x"]
+size = Vector2(35, 50)
+
+[node name="BackgroundPerson" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_86rw7")
+Speed = 1.0
+
+[node name="BPSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_uxjrd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -3)
+shape = SubResource("RectangleShape2D_55i2x")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.500003, -1)
+scale = Vector2(1.85, 0.9)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]

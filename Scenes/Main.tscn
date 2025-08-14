@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3bvbslkbvalg"]
+
+[ext_resource type="PackedScene" uid="uid://d3kh22g5gyd2d" path="res://Scenes/UIBackground.tscn" id="1_idj7w"]
+[ext_resource type="Script" uid="uid://bao8kcep5t2a3" path="res://Scripts/Main.cs" id="1_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://nrermb7relsp" path="res://Scenes/InteractingPersonTriggerZone.tscn" id="2_kln2b"]
+
+[sub_resource type="Curve2D" id="Curve2D_kln2b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 48, 0, 0, 0, 0, 320, 48, 0, 0, 0, 0, 0, 48)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_rgh2o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 128, 0, 0, 0, 0, 320, 128, 0, 0, 0, 0, 0, 128)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_pbw6q"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_rgh2o")
+
+[node name="TextureRect" parent="." instance=ExtResource("1_idj7w")]
+
+[node name="IPTriggerZone" parent="." instance=ExtResource("2_kln2b")]
+monitorable = false
+
+[node name="BackgroundPersonTimer" type="Timer" parent="."]
+
+[node name="InteractingPersonTimer" type="Timer" parent="."]
+
+[node name="BPPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_kln2b")
+
+[node name="BPPathFollow" type="PathFollow2D" parent="BPPath"]
+position = Vector2(0, 48)
+rotates = false
+
+[node name="IPPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_rgh2o")
+
+[node name="IPPathFollow" type="PathFollow2D" parent="IPPath"]
+position = Vector2(0, 128)
+rotates = false
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pbw6q")
+
+[connection signal="TriggerDialogue" from="IPTriggerZone" to="." method="GiveOrder"]
+[connection signal="timeout" from="BackgroundPersonTimer" to="." method="OnBackgroundPersonTimerTimeout"]
+[connection signal="timeout" from="InteractingPersonTimer" to="." method="OnInteractingPersonTimerTimeout"]

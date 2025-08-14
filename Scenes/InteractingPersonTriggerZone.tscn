@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://nrermb7relsp"]
+
+[ext_resource type="Script" uid="uid://b8yos65mo4yai" path="res://Scripts/InteractingPersonTriggerZone.cs" id="1_dy8w2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8bac"]
+size = Vector2(96, 192)
+
+[node name="IPTriggerZone" type="Area2D"]
+script = ExtResource("1_dy8w2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(160, 88)
+shape = SubResource("RectangleShape2D_v8bac")
+
+[connection signal="area_entered" from="." to="." method="OnIPTriggerZoneAreaEntered"]
+[connection signal="area_exited" from="." to="." method="OnIPTriggerZoneAreaExited"]

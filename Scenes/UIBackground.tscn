@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3kh22g5gyd2d"]
+
+[ext_resource type="Texture2D" uid="uid://dnkp8eo7p3vtg" path="res://Sprites/UI/UIBackground.png" id="1_vr035"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_vr035")
