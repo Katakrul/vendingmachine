@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bf0hxd2abnlmo"]
 
-[ext_resource type="Script" uid="uid://jxduwr83mw7c" path="res://InteractingPerson.cs" id="1_ncewp"]
+[ext_resource type="Script" uid="uid://jxduwr83mw7c" path="res://Scripts/InteractingPerson.cs" id="1_ncewp"]
 [ext_resource type="Texture2D" uid="uid://duy8lekta4li8" path="res://Sprites/Characters/PlaceholderPerson.png" id="2_jb4lc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g073i"]
