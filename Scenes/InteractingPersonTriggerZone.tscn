@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b8yos65mo4yai" path="res://Scripts/InteractingPersonTriggerZone.cs" id="1_dy8w2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8bac"]
-size = Vector2(96, 192)
+size = Vector2(48, 192)
 
 [node name="IPTriggerZone" type="Area2D"]
 script = ExtResource("1_dy8w2")

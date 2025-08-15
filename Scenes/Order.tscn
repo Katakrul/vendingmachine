@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbiik4w0dr1yx"]
+
+[ext_resource type="Texture2D" uid="uid://csowtesr4u10l" path="res://Sprites/Misc/PlaceholderOrderItem.png" id="1_k7jxk"]
+[ext_resource type="Script" uid="uid://c2y6si62qjrvd" path="res://Scripts/Order.cs" id="1_md6h5"]
+
+[node name="Order" type="CanvasLayer"]
+script = ExtResource("1_md6h5")
+
+[node name="OrderTextContainer" type="CenterContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="OrderText" type="Label" parent="OrderTextContainer"]
+layout_mode = 2
+text = "buh"
+horizontal_alignment = 1
+
+[node name="OrderSprite" type="TextureRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 92.0
+grow_horizontal = 2
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("1_k7jxk")
+
+[connection signal="tree_entered" from="." to="." method="OnOrderTreeEntered"]

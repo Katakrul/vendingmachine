@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3ekx8o2eogvl"]
+
+[ext_resource type="Script" uid="uid://1gunv81jlyap" path="res://Scripts/PlaceholderFeature.cs" id="1_il57n"]
+
+[node name="PlaceholderFeature" type="CanvasLayer"]
+script = ExtResource("1_il57n")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 143.0
+offset_bottom = 56.0
+text = "press to answer"
+
+[connection signal="pressed" from="Button" to="." method="OnPlaceholderFeatureButtonPressed"]

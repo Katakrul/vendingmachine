@@ -22,6 +22,7 @@ point_count = 3
 script = ExtResource("1_rgh2o")
 
 [node name="TextureRect" parent="." instance=ExtResource("1_idj7w")]
+visible = false
 
 [node name="IPTriggerZone" parent="." instance=ExtResource("2_kln2b")]
 monitorable = false

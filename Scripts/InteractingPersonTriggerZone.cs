@@ -47,7 +47,6 @@ public partial class InteractingPersonTriggerZone : Area2D
 	{
 		if (area is InteractingPerson person && person == currentPerson)
 		{
-			GD.Print("Allo");
 			currentPerson = null;
 		}
 
