@@ -7,6 +7,7 @@ public partial class BackgroundPerson : Node2D
 	[Export]
 	public float Speed { get; set; }
 	public string startPos;
+	public bool front;
 	
 	public Vector2 ScreenSize;
 
@@ -20,9 +21,9 @@ public partial class BackgroundPerson : Node2D
 		var velocity = Vector2.Zero;
 		
 		if (startPos == "left") {
-			velocity.X += (float)GD.RandRange(50/2.5, 100/2.5);
+			velocity.X += (float)GD.RandRange(Speed, Speed*2);
 		} else {
-			velocity.X -= (float)GD.RandRange(50/2.5, 100/2.5);
+			velocity.X -= (float)GD.RandRange(Speed, Speed*2);
 		}
 		
 		Position += velocity * (float)delta;

@@ -8,6 +8,8 @@ public partial class Main : Node
 	public PackedScene InteractingPersonScene = GD.Load<PackedScene>("res://Scenes/InteractingPerson.tscn");
 	public PackedScene OrderScene = GD.Load<PackedScene>("res://Scenes/Order.tscn");
 	private RandomNumberGenerator _rng = new RandomNumberGenerator();
+	private Timer _bpTimer;
+	private Timer _ipTimer;
 	
 	private float[] _startingPositions = [0f, 0.5f];
 	private int _availableOrderTasks = 1;
@@ -22,84 +24,107 @@ public partial class Main : Node
 	
 	public void StartGame()
 	{
-		var bpTimer = GetNode<Timer>("BackgroundPersonTimer");
-		var ipTimer = GetNode<Timer>("InteractingPersonTimer");
+		_bpTimer = GetNode<Timer>("BackgroundPersonTimer");
+		_ipTimer = GetNode<Timer>("InteractingPersonTimer");
 		
-		bpTimer.WaitTime = GD.RandRange(1, 5);
-		ipTimer.WaitTime = GD.RandRange(1, 5);
+		_bpTimer.WaitTime = GD.RandRange(1, 5);
+		_ipTimer.WaitTime = GD.RandRange(1, 5);
 		
-		bpTimer.Start();
-		ipTimer.Start();
-		
+		_bpTimer.Start();
+		_ipTimer.Start();
+		GD.Print("Background Zindex : " + GetNode<TextureRect>("UIBackground").ZIndex);
 	}
 	
 	private void OnBackgroundPersonTimerTimeout()
 	{
+		var person = BackgroundPersonScene.Instantiate<BackgroundPerson>();
+		person.front = Convert.ToBoolean(GD.RandRange(0,1));
 		
-		AddPerson("BackgroundPerson");
-		var bpTimer = GetNode<Timer>("BackgroundPersonTimer");
-		bpTimer.WaitTime = GD.RandRange(1, 5);
-		
-	}
-	
-	private void OnInteractingPersonTimerTimeout()
-	{
-		AddPerson("InteractingPerson");
-		var ipTimer = GetNode<Timer>("InteractingPersonTimer");
-		ipTimer.WaitTime = GD.RandRange(1, 5);
-	}
-	
-	private void AddPerson(string personType)
-	{
-		if (personType == "BackgroundPerson") {
-			var person = BackgroundPersonScene.Instantiate<BackgroundPerson>();
-			var personPosition = GetNode<PathFollow2D>("BPPath/BPPathFollow");
+		if (!person.front) {
+			var personPosition = GetNode<PathFollow2D>("BehindPath/BehindPathFollow");
 			personPosition.ProgressRatio = _startingPositions[GD.Randi() % _startingPositions.Length];
-			person.Speed = _rng.RandfRange(0.01f, 0.1f);
+			person.Speed = 25;
 			person.Position = personPosition.Position;
 			person.Position = new Vector2(
 				x: person.Position.X,
 				y: person.Position.Y + GD.RandRange(-20, 20)
-				);
-			if (person.Position.X == 0) {
-				person.startPos = "left";
-			} else {
-				person.startPos = "right";
-			}
-			
-			AddChild(person);
-		} else if (personType == "InteractingPerson") {
-			var person = InteractingPersonScene.Instantiate<InteractingPerson>();
-			var personHitbox = person.GetNode<CollisionShape2D>("CollisionShape2D");
-			var personPosition = GetNode<PathFollow2D>("IPPath/IPPathFollow");
+			);
+		} else {
+			var personPosition = GetNode<PathFollow2D>("FrontPath/FrontPathFollow");
+			var personSprite = person.GetNode<Sprite2D>("BPSprite");
 			personPosition.ProgressRatio = _startingPositions[GD.Randi() % _startingPositions.Length];
-			person.Speed = _rng.RandfRange(0.01f, 0.1f);
+			person.Speed = 50;
 			person.Position = personPosition.Position;
 			person.Position = new Vector2(
 				x: person.Position.X,
 				y: person.Position.Y + GD.RandRange(-10, 10)
 			);
-			if (person.Position.X == 0) {
-				person.startPos = "left";
-				personHitbox.Position = new Vector2(
-					x: personHitbox.Position.X + GD.RandRange(-50, 0),
-					y: personHitbox.Position.Y
-				);
-			} else {
-				person.startPos = "right";
-				personHitbox.Position = new Vector2(
-					x: personHitbox.Position.X + GD.RandRange(0, 50),
-					y: personHitbox.Position.Y
-				);
-			}
-			AddChild(person);
+			personSprite.Scale = new Vector2(
+				2.5f,
+				2.5f
+			);
 		}
+		if (person.Position.X == 0) {
+			person.startPos = "left";
+		} else {
+			person.startPos = "right";
+		}
+		//person.ZIndex = 1;
+		//person.Modulate = new Color("red");
+		GD.Print("Background Person ZIndex : " + person.ZIndex);
+		AddChild(person);
+		
+		
+		_bpTimer.WaitTime = GD.RandRange(1, 5);
+		
 	}
 	
-	private async void GiveOrder(InteractingPerson body)
+	private void OnInteractingPersonTimerTimeout()
 	{
-		body.Stop = true;
-		_currentInteractingPerson = body;
+		var person = InteractingPersonScene.Instantiate<InteractingPerson>();
+		var personHitbox = person.GetNode<CollisionShape2D>("CollisionShape2D");
+		var personPosition = GetNode<PathFollow2D>("FrontPath/FrontPathFollow");
+		personPosition.ProgressRatio = _startingPositions[GD.Randi() % _startingPositions.Length];
+		person.Speed = _rng.RandfRange(0.01f, 0.1f);
+		person.Position = personPosition.Position;
+		person.Position = new Vector2(
+			x: person.Position.X,
+			y: person.Position.Y + GD.RandRange(-10, 10)
+		);
+		if (person.Position.X == 0) {
+			person.startPos = "left";
+			personHitbox.Position = new Vector2(
+				x: personHitbox.Position.X + GD.RandRange(-50, 0),
+				y: personHitbox.Position.Y
+			);
+		} else {
+			person.startPos = "right";
+			personHitbox.Position = new Vector2(
+				x: personHitbox.Position.X + GD.RandRange(0, 50),
+				y: personHitbox.Position.Y
+			);
+		}
+		person.ZIndex = 1;
+		GD.Print("Interacting Person ZIndex : " + person.ZIndex);
+		AddChild(person);
+		
+		_ipTimer.Stop();
+	}
+	
+	//private void AddPerson(string personType)
+	//{
+		//if (personType == "BackgroundPerson") {
+//
+		//} else if (personType == "InteractingPerson") {
+			//
+		//}
+	//}
+	
+	private async void GiveOrder(InteractingPerson person)
+	{
+		person.Stop = true;
+		person.ZIndex = 1;
+		_currentInteractingPerson = person;
 		var order = (Order)OrderScene.Instantiate();
 		var orderContainer = order.GetNode<CenterContainer>("OrderTextContainer");
 		var orderText = order.GetNode<Label>("OrderTextContainer/OrderText");
@@ -134,6 +159,7 @@ public partial class Main : Node
 			feature.QueueFree();
 			order.QueueFree();
 			_completedOrderTasks = 0;
+			_ipTimer.Start();
 		} else {
 			_completedOrderTasks++;
 		}

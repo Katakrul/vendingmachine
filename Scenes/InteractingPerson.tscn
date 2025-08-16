@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bf0hxd2abnlmo"]
 
 [ext_resource type="Script" uid="uid://jxduwr83mw7c" path="res://Scripts/InteractingPerson.cs" id="1_ncewp"]
-[ext_resource type="Texture2D" uid="uid://duy8lekta4li8" path="res://Sprites/Characters/PlaceholderPerson.png" id="2_jb4lc"]
+[ext_resource type="Texture2D" uid="uid://csowtesr4u10l" path="res://Sprites/Misc/PlaceholderOrderItem.png" id="2_ncewp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g073i"]
 size = Vector2(24, 24)
@@ -11,7 +11,7 @@ script = ExtResource("1_ncewp")
 
 [node name="IPSprite" type="Sprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("2_jb4lc")
+texture = ExtResource("2_ncewp")
 centered = false
 offset = Vector2(-50, -53)
 
